@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<table border="1">
+    <tr>
+        <th>description</th>
+        <th>done</th>
+        <th>options</th>
+    </tr>
+    <tbody>
+    <tr th:each="action : ${allActions}">
+        <td th:text="${action.description}">description</td>
+<!--        <td th:text="${action.flag}">done</td>-->
+        <td th:text="${action.showFlag(action.getFlag)}">done</td>
+        <td>
+            <a th:href="@{/delete(idAction=${action.id})}">
+                delete
+            </a>
+
+            <a th:href="@{/done(idAction=${action.id})}">
+                done
+            </a>
+
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+<form action="#" th:action="@{/actions}" th:object="${action}" method="post">
+    <p>Message: <input type="text" th:field="*{description}" /></p>
+    <p><input type="submit" value="add" /> <input type="reset" value="reset" /></p>
+</form>
+</body>
+</html>
